@@ -81,8 +81,11 @@ while(k<=itl){
     
     M = (diag(1,node)-X%*%solve(t(X)%*%X)%*%t(X))
     
-    proportion1 = sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%solve(diag(1,node)-Rho[i]*W))%*%(W%*%solve(diag(1,node)-Rho[i]*W))))+t(betamt[,i-1])%*%t(X)%*%t(W%*%solve(diag(1,node)-Rho[i]*W))%*%M%*%(W%*%solve(diag(1,node)-Rho[i]*W))%*%X%*%betamt[,i-1])/
-      sqrt(sum((Lamda^2)/((1-Rho[i-1]*Lamda)^2))+ sum(diag(t(W%*%solve(diag(1,node)-Rho[i-1]*W))%*%(W%*%solve(diag(1,node)-Rho[i-1]*W))))+t(betamt[,i-1])%*%t(X)%*%t(W%*%solve(diag(1,node)-Rho[i-1]*W))%*%M%*%(W%*%solve(diag(1,node)-Rho[i-1]*W))%*%X%*%betamt[,i-1])
+    B1 = solve(diag(1,node)-Rho[i]*W)
+    B2 = solve(diag(1,node)-Rho[i-1]*W)
+    
+    proportion1 = sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%B1)%*%(W%*%B1)))+t(betamt[,i-1])%*%t(X)%*%t(W%*%B1)%*%M%*%(W%*%B1)%*%X%*%betamt[,i-1])/
+      sqrt(sum((Lamda^2)/((1-Rho[i-1]*Lamda)^2))+ sum(diag(t(W%*%B2)%*%(W%*%B2)))+t(betamt[,i-1])%*%t(X)%*%t(W%*%B2)%*%M%*%(W%*%B2)%*%X%*%betamt[,i-1])
     
     proportion2 = (det(diag(1,node)-Rho[i]*W)/det(diag(1,node)-Rho[i-1]*W))*exp(
       -1/2*t((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])%*%((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])+
@@ -108,8 +111,10 @@ while(k<=itl){
     betamt[,i] = rmvnorm(1, mean = solve(t(X)%*%X)%*%t(X)%*%(diag(1,node)-Rho[i]*W)%*%detamt[,i-1],
                          sigma = solve(t(X)%*%X))
     
-    proportion3 = sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%solve(diag(1,node)-Rho[i]*W))%*%(W%*%solve(diag(1,node)-Rho[i]*W))))+t(betamt[,i])%*%t(X)%*%t(W%*%solve(diag(1,node)-Rho[i]*W))%*%M%*%(W%*%solve(diag(1,node)-Rho[i]*W))%*%X%*%betamt[,i])/
-      sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%solve(diag(1,node)-Rho[i]*W))%*%(W%*%solve(diag(1,node)-Rho[i]*W))))+t(betamt[,i-1])%*%t(X)%*%t(W%*%solve(diag(1,node)-Rho[i]*W))%*%M%*%(W%*%solve(diag(1,node)-Rho[i]*W))%*%X%*%betamt[,i-1])
+    B3 = solve(diag(1,node)-Rho[i]*W)
+    
+    proportion3 = sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%B3)%*%(W%*%B3)))+t(betamt[,i])%*%t(X)%*%t(W%*%B3)%*%M%*%(W%*%B3)%*%X%*%betamt[,i])/
+      sqrt(sum((Lamda^2)/((1-Rho[i]*Lamda)^2))+ sum(diag(t(W%*%B3)%*%(W%*%B3)))+t(betamt[,i-1])%*%t(X)%*%t(W%*%B3)%*%M%*%(W%*%B3)%*%X%*%betamt[,i-1])
     
     proportion4 = exp(
       -1/2*t((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i])%*%((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i])+

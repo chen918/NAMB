@@ -1,5 +1,4 @@
-This file contains 5 scripts for the simulation study of the paper on binary network autocorrelation model. 
-Each script forms the standalone file with data generation and model estimation using Bayesian approach with different prior distributions of rho.
-In particular, BNAM_uniform_1 uses a uniform prior of rho with a range from 1/lamda_min to 1/lamda_max; BNAM_uniform_2 uses a uniform prior of rho with a range from -1 to 1; BNAM_uniform_T uses a transformed uniform prior of rho.
-BNAM_JR uses a Jeffrey rule prior of rho; BNAM_IJ uses an Independence Jeffreys prior.
-For each script, the output includes the posterior median estimator of coffefients and rho. In adiition, it also includes the mean squared error of rho, 95% coverage rate of rho, 95% equal-tailed credible interval of rho and average width of credible intrerval of rho. 
+This file contains 8 scripts for the simulation study of the paper on network autocorrelation model for binary outcomes. 
+Each script forms the standalone file with data generation and model estimation for 4 different models (i.e., probit latent response model, logistic latent response model, probit mean model, logistic mean model) using Bayesian approach with different prior distributions of rho.
+In particular, scripts ending with "_U" represent estimating the models using uniform prior of rho and scripts ending with "_TU" represent estimating the models using trasnformed uniform prior of rho. 
+Robustness analysis is conducted by generating the data under one model and estimating another model (Analysis can be done using the combinations of existing scripts with 16 combinations in total for each prior distribution of rho). 

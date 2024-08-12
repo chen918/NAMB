@@ -25,7 +25,10 @@ if (!require(tmvtnorm)) {
   library(tmvtnorm)
 }
 
-itl=500
+# rho=0.2/-0.2
+rho=0
+
+itl=1000
 medianbeta_m = matrix(0,nrow=4,ncol=itl)
 medianRho_v = c()
 coverage = 0
@@ -39,7 +42,6 @@ while(k<=itl){
   ################
   #Generating the data
   node=200
-  rho=0
   ddensity=0.4
   X=cbind(1,matrix(rnorm(node*3),ncol=3))
   BBeta=matrix(c(0.5,2,1,0.5),nrow =4)

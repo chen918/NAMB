@@ -20,8 +20,10 @@ if (!require(truncnorm)) {
   library(truncnorm)
 }
 
+# rho=0.2/-0.2
+rho=0
 
-itl=500
+itl=1000
 medianbeta_m = matrix(0,nrow=4,ncol=itl)
 medianRho_v = c()
 coverage = 0
@@ -35,7 +37,6 @@ while(k<=itl){
   ################
   #Generating the data
   node=200 
-  rho=0
   ddensity=0.4
   X=cbind(1,matrix(rnorm(node*3),ncol=3))
   BBeta=matrix(c(0.5,2,1,0.5),nrow =4)
@@ -97,7 +98,8 @@ while(k<=itl){
       return(y)
     }
     
-    proportion = (((1/max(Lamda)-Rho[i-1])*(Rho[i-1]-1/min(Lamda)))/((1/max(Lamda)-Rho[i])*(Rho[i]-1/min(Lamda))))*abs(det(diag(1,node)-Rho[i]*W)/det(diag(1,node)-Rho[i-1]*W))*prod(unlist(lapply(seq(1,node),cal1)))
+    proportion = (((1/max(Lamda)-Rho[i-1])*(Rho[i-1]-1/min(Lamda)))/((1/max(Lamda)-Rho[i])*(Rho[i]-1/min(Lamda))))*abs(det(diag(1,node)-Rho[i]*W)/det(diag(1,node)-Rho[i-1]*W))*prod(unlist(lapply(seq(1,node),cal1)))* 
+      dtruncnorm(Rho[i-1], a=1/min(Lamda), b=1/max(Lamda), mean=Rho[i],sd=0.15)/dtruncnorm(Rho[i], a=1/min(Lamda), b=1/max(Lamda), mean=Rho[i-1],sd=0.15)
     
     proportion = min(1, Re(proportion))
     
@@ -129,18 +131,16 @@ while(k<=itl){
     
     
     for(j in 1:node){
-      tmp = 1
-      while(tmp){
-        detamt[j,i] = detamt[j,i-1]+rnorm(1, mean = 0, sd = 0.25)
-        
-        if(Y[j]==1){
-          if (detamt[j,i]>0){
-            tmp=0
-          }
-        }else{
-          if (detamt[j,i]<0){
-            tmp=0
-          }
+      
+      detamt[j,i] = detamt[j,i-1]+rnorm(1, mean = 0, sd = 0.3)
+      
+      if(Y[j]==1){
+        if (detamt[j,i]<0){
+          detamt[j,i]=detamt[j,i-1]
+        }
+      }else{
+        if (detamt[j,i]>0){
+          detamt[j,i]=detamt[j,i-1]
         }
       }
     }
@@ -207,5 +207,4 @@ mean(lbv)
 mean(ubv)
 
 mean(ubv)-mean(lbv)
-
 

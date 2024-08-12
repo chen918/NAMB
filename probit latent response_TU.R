@@ -25,7 +25,10 @@ if (!require(tmvtnorm)) {
   library(tmvtnorm)
 }
 
-itl=500
+# rho=0.2/-0.2
+rho=0
+
+itl=1000
 medianbeta_m = matrix(0,nrow=4,ncol=itl)
 medianRho_v = c()
 coverage = 0
@@ -39,7 +42,6 @@ while(k<=itl){
   ################
   #Generating the data
   node=200
-  rho=0
   ddensity=0.4
   X=cbind(1,matrix(rnorm(node*3),ncol=3))
   BBeta=matrix(c(0.5,2,1,0.5),nrow =4)
@@ -85,12 +87,12 @@ while(k<=itl){
      Rho[i]=rtruncnorm(1, a=1/min(Lamda), b=1/max(Lamda), mean=(t(detamt[,i-1])%*%t(W)%*%(detamt[,i-1]-X%*%betamt[,i-1]))/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1]),
                        sd=sqrt(1/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1])))
     
-    proportion = (((1/max(Lamda)-Rho[i-1])*(Rho[i-1]-1/min(Lamda)))/((1/max(Lamda)-Rho[i])*(Rho[i]-1/min(Lamda))))*abs(det(diag(1,node)-Rho[i]*W)/det(diag(1,node)-Rho[i-1]*W))*exp(
-      -1/2*t((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])%*%((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])+
-        1/2*t((diag(1,node)-Rho[i-1]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])%*%((diag(1,node)-Rho[i-1]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])
-      -1/2*((Rho[i-1]-(t(detamt[,i-1])%*%t(W)%*%(detamt[,i-1]-X%*%betamt[,i-1]))/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1]))^2/(1/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1])))+
-        1/2*((Rho[i]-(t(detamt[,i-1])%*%t(W)%*%(detamt[,i-1]-X%*%betamt[,i-1]))/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1]))^2/(1/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1])))
-    )
+     proportion = (((1/max(Lamda)-Rho[i-1])*(Rho[i-1]-1/min(Lamda)))/((1/max(Lamda)-Rho[i])*(Rho[i]-1/min(Lamda))))*abs(det(diag(1,node)-Rho[i]*W)/det(diag(1,node)-Rho[i-1]*W))*exp(
+       -1/2*t((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])%*%((diag(1,node)-Rho[i]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])+
+         1/2*t((diag(1,node)-Rho[i-1]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])%*%((diag(1,node)-Rho[i-1]*W)%*%detamt[,i-1]-X%*%betamt[,i-1])
+       -1/2*((Rho[i-1]-(t(detamt[,i-1])%*%t(W)%*%(detamt[,i-1]-X%*%betamt[,i-1]))/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1]))^2/(1/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1])))+
+         1/2*((Rho[i]-(t(detamt[,i-1])%*%t(W)%*%(detamt[,i-1]-X%*%betamt[,i-1]))/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1]))^2/(1/(sum(Lamda^2)+t(detamt[,i-1])%*%t(W)%*%W%*%detamt[,i-1])))
+     )
     
     proportion = min(1, Re(proportion))
     

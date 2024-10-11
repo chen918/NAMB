@@ -24,7 +24,7 @@ if (!require(tmvtnorm)) {
   install.packages("tmvtnorm")
   library(tmvtnorm)
 }
-
+# True value of Rho
 # rho=0.2/-0.2
 rho=0
 
@@ -154,10 +154,13 @@ apply(medianbeta_m,MARGIN=1, FUN=mean)
 
 mean(medianRho_v)
 
+# Bias
 mean(medianRho_v)-rho
 
+# MSE
 sum((medianRho_v-rho)^2)/itl
 
+# Coverage rate
 coverage/itl
 
 mean(lbv)

@@ -150,10 +150,13 @@ apply(medianbeta_m,MARGIN=1, FUN=mean)
 
 mean(medianRho_v)
 
+# Bias
 mean(medianRho_v)-rho
 
+# MSE
 sum((medianRho_v-rho)^2)/itl
 
+# Coverage rate
 coverage/itl
 
 mean(lbv)

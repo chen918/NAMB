@@ -1,2 +1,2 @@
-This file contains 12 scripts for the simulation study of robustness analysis of the incongruent model pairs. 1 is for the probit latent model; 2 is for the logistic latent model; 3 is for the logistic mean model; and 4 is for the probit mean model. 
+This file contains 12 scripts for the simulation study of robustness analysis of the incongruent model pairs for uniform prior of rho. 1 is for the probit latent model; 2 is for the logistic latent model; 3 is for the logistic mean model; and 4 is for the probit mean model. 
 Therefore, as an example, robust12 is the script which generates the data using the probit latent model but estimates the model using logistic latent model. Other scripts are named in the same manner.  

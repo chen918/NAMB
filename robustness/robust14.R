@@ -33,7 +33,8 @@ while(k<=itl){
   ################
   #Generating the data
   node=200
-  rho=0
+  # True value of Rho
+  rho=0 
   ddensity=0.4
   X=cbind(1,matrix(rnorm(node*3),ncol=3))
   BBeta=matrix(c(0.5,2,1,0.5),nrow =4)

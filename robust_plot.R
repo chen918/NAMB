@@ -37,4 +37,3 @@ ggplot(plotdata) +
   theme(text=element_text(size=15)) +
   scale_x_continuous(limits = c(-0.2,0.2), breaks =c(-0.2,0,0.2))
 
-ggsave("/Users/CongMeow/Desktop/Robust_plot.png",dpi = 600,width = 12,height = 8) 

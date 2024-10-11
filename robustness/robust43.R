@@ -33,6 +33,7 @@ while(k<=itl){
   ################
   #Generating the data
   node=200
+  # True value of Rho
   rho=0
   ddensity=0.4
   X=cbind(1,matrix(rnorm(node*3),ncol=3))

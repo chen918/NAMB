@@ -98,6 +98,9 @@ ub=quantile(Rho[-(1:4000)],0.975)
 lb
 ub
 
+# posterior standard deviation of Rho
+sd(Rho[-(1:4000)])
+
 # Trace plot and autocorrelation plot for Rho
 traceplot(as.mcmc(Rho))
 autocorr.plot(as.mcmc(Rho), lag.max = 100)
